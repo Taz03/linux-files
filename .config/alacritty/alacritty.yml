@@ -1,0 +1,64 @@
+env:
+  TERM: xterm-256color
+    
+window:
+    padding:
+        x: 5
+        y: 5
+
+font:
+    normal:
+        family: JetBrains Mono Nerd Font
+        style:  Medium
+    bold:
+        family: JetBrains Mono Nerd Font
+        style:  Bold
+    italic:
+        family: JetBrains Mono Nerd Font
+        style:  MediumItalic
+    bold_italic:
+        family: JetBrains Mono Nerd Font
+        style: BoldItalic
+    size: 8
+draw_bold_text_with_bright_colors: true
+
+selection:
+    save_to_clipboard: false
+
+colors: # one dark theme
+    primary:
+        background: '0x1e2127'
+        foreground: '0xabb2bf'
+    normal:
+        black: '0x1e2127'
+        red: '0xe06c75'
+        green: '0x98c379'
+        yellow: '0xd19a66'
+        blue: '0x61afef'
+        magenta: '0xc678dd'
+        cyan: '0x56b6c2'
+        white: '0x828791'
+    bright:
+        black: '0x5c6370'
+        red: '0xe06c75'
+        green: '0x98c379'
+        yellow: '0xd19a66'
+        blue: '0x61afef'
+        magenta: '0xc678dd'
+        cyan: '0x56b6c2'
+        white: '0xe6efff'
+    dim:
+        black: '0x1e2127'
+        red: '0xe06c75'
+        green: '0x98c379'
+        yellow: '0xd19a66'
+        blue: '0x61afef'
+        magenta: '0xc678dd'
+        cyan: '0x56b6c2'
+        white: '0x828791'
+    cursor:
+        text: CellBackground
+        cursor: '0xe06c75'
+    selection:
+        text: CellForeground
+        background: '0x3e4451'
