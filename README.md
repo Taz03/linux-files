@@ -6,6 +6,7 @@
 
 #### Packages
 scrot
+starship
 vim
 vi
 sxhkd
