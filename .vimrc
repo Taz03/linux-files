@@ -5,7 +5,16 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
 Plug 'junegunn/fzf'
 Plug 'joshdick/onedark.vim'
+Plug 'jiangmiao/auto-pairs'
+" Java
 Plug 'uiiaoo/java-syntax.vim'
+" JS / TS
+Plug 'pangloss/vim-javascript'
+" JSON
+Plug 'elzr/vim-json'
+" Gradle
+Plug 'tfnico/vim-gradle'
+Plug 'vim-scripts/groovy.vim'
 call plug#end()
 
 let g:airline#extensions#tabline#enabled = 1
@@ -23,6 +32,9 @@ endif
 syntax on
 set termguicolors
 colorscheme onedark
+
+set updatetime=100
+set clipboard=unnamedplus
 let mapleader = ' '
 
 " hybrid line number
@@ -175,6 +187,9 @@ nmap <leader>ac <Plug>(coc-codeaction)
 
 " Run the Code Lens action on the current line.
 nmap <leader>cl <Plug>(coc-codelens-action)
+
+" Apply the most preferred quickfix action to fix diagnostic on the current line
+nmap <leader>qf <Plug>(coc-fix-current)
 
 " Map function and class text objects
 xmap if <Plug>(coc-funcobj-i)

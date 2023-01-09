@@ -3,6 +3,7 @@
 enable_recursive_icon_lookup = true
 markup = full
 format = "<b>%s</b>\n%b"
+corner_radius = 8
 
 # Sort messages by urgency.
 sort = no
@@ -32,6 +33,10 @@ hide_duplicate_count = no
 
 origin = top-right
 
+# offset = 9x64
+
+# width = (0,500)
+
 # Shrink window if it's smaller than the width.  Will be ignored if
 # width is 0.
 shrink = no
@@ -40,6 +45,9 @@ shrink = no
 # for longer than idle_threshold seconds.
 # Set to 0 to disable.
 idle_threshold = 120
+
+# Which monitor should the notifications be displayed on.
+# monitor = 0
 
 # Display notification on focused monitor.  Possible modes are:
 #   mouse: follow mouse pointer
@@ -78,10 +86,10 @@ line_height = 4
 separator_height = 4
 
 # Padding between text and separator.
-padding = 10
+padding = 15
 
 # Horizontal padding.
-horizontal_padding = 10
+horizontal_padding = 15
 
 # Define a color for the separator.
 # possible values are:
@@ -108,6 +116,27 @@ icon_position = left
 max_icon_size = 48
 
 frame_width = 0
+
+# [shortcuts]
+#
+# # Shortcuts are specified as [modifier+][modifier+]...key
+# # Available modifiers are "ctrl", "mod1" (the alt-key), "mod2",
+# # "mod3" and "mod4" (windows-key).
+# # Xev might be helpful to find names for keys.
+#
+# # Close notification.
+# close = ctrl+shift+space
+#
+# # Close all notifications.
+# close_all = ctrl+shift+space
+#
+# # Redisplay last message(s).
+# # On the US keyboard layout "grave" is normally above TAB and left
+# # of "1".
+# history = ctrl+grave
+#
+# # Context menu.
+# context = ctrl+shift+period
 
 [urgency_low]
 # IMPORTANT: colors have to be defined in quotation marks.
@@ -138,3 +167,56 @@ appname = wireless
 new_icon = network-card
 format = "<span font_desc='JetBrainsMono Medium Nerd Font'>%b</span>"
 
+# Every section that isn't one of the above is interpreted as a rules to
+# override settings for certain messages.
+# Messages can be matched by "appname", "summary", "body", "icon", "category",
+# "msg_urgency" and you can override the "timeout", "urgency", "foreground",
+# "background", "new_icon" and "format".
+# Shell-like globbing will get expanded.
+#
+# SCRIPTING
+# You can specify a script that gets run when the rule matches by
+# setting the "script" option.
+# The script will be called as follows:
+#   script appname summary body icon urgency
+# where urgency can be "LOW", "NORMAL" or "CRITICAL".
+#
+# NOTE: if you don't want a notification to be displayed, set the format
+# to "".
+# NOTE: It might be helpful to run dunst -print in a terminal in order
+# to find fitting options for rules.
+
+#[espeak]
+#    summary = "*"
+#    script = dunst_espeak.sh
+
+#[script-test]
+#    summary = "*script*"
+#    script = dunst_test.sh
+
+#[ignore]
+#    # This notification will not be displayed
+#    summary = "foobar"
+#    format = ""
+
+#[signed_on]
+#    appname = Pidgin
+#    summary = "*signed on*"
+#    urgency = low
+#
+#[signed_off]
+#    appname = Pidgin
+#    summary = *signed off*
+#    urgency = low
+#
+#[says]
+#    appname = Pidgin
+#    summary = *says*
+#    urgency = critical
+#
+#[twitter]
+#    appname = Pidgin
+#    summary = *twitter.com*
+#    urgency = normal
+#
+# vim: ft=cfg

@@ -120,34 +120,37 @@ super + alt + shift + {h,j,k,l}
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
+#
 # Brightness
+#
+
 XF86MonBrightnessUp
 	brightnessctl set 5%+
 
 XF86MonBrightnessDown
 	brightnessctl set 5%-
 
+#
 # Volume
-XF86AudioRaiseVolume
-	amixer set Master 5%+
-
-XF86AudioLowerVolume
-    amixer set Master 5%-
+#
 
 XF86AudioMute
-    amixer set Master 0%
+    amixer -D pulse set Master toggle
 
+#
 # Screenshot
+#
+
 Print
-	scrot -s $HOME/'Pictures/Screenshots/%Y-%m-%d_%H%M%S-$wx$h_scrot.png'
+	scrot -s $HOME/'Pictures/Screenshots/%Y-%m-%d_%H%M%S-$wx$h_scrot.png' -e 'xclip -selection clipboard -target image/png -i $f'
 
 alt + Print
-	scrot $HOME/'Pictures/Screenshots/%Y-%m-%d_%H%M%S-$wx$h_scrot.png'
+	scrot $HOME/'Pictures/Screenshots/%Y-%m-%d_%H%M%S-$wx$h_scrot.png' -e 'xclip -selection clipboard -target image/png -i $f'
+
+#
+# Others
+#
 
 # Emoji selector
 alt + E
   rofi -show emoji
-
-# power menu
-super + alt + p
-    powermenu
