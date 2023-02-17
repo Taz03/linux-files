@@ -2,6 +2,9 @@ local Plug = vim.fn['plug#']
 
 vim.call('plug#begin', '~/.config/nvim/plugged')
 Plug('neoclide/coc.nvim', { branch = 'master', ['do'] = 'yarn install --frozen-lockfile' })
+Plug('nvim-treesitter/nvim-treesitter')
+Plug('tfnico/vim-gradle')
+Plug('vim-scripts/groovy.vim')
 Plug('vim-airline/vim-airline')
 Plug('vim-airline/vim-airline-themes')
 Plug('ryanoasis/vim-devicons')
@@ -9,6 +12,7 @@ Plug('joshdick/onedark.vim')
 Plug('tribela/vim-transparent')
 Plug('junegunn/fzf', { ['do'] = vim.fn['fzf#install'] })
 Plug('junegunn/fzf.vim')
+Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && yarn install' })
 vim.call('plug#end')
 
 vim.g.mapleader = ' '
@@ -16,8 +20,18 @@ vim.g['airline#extensions#tabline#enabled'] = 1
 vim.g['airline#extensions#tabline#formatter'] = 'default'
 vim.g.ariline_powerline_fonts = 1
 
+vim.g.coc_global_extensions = {
+    'coc-snippets',
+    'coc-java',
+    'coc-json',
+    'coc-yaml',
+    'coc-xml',
+    'coc-groovy'
+}
+
 vim.opt.termguicolors = true
-vim.opt.updatetime = 100
+vim.opt.updatetime = 0
+vim.opt.mouse = nil
 vim.opt.clipboard = 'unnamedplus'
 vim.cmd("colorscheme onedark")
 
@@ -70,7 +84,7 @@ vim.api.nvim_create_autocmd('BufReadPost', {
 vim.keymap.set('n', '<leader>ff', ':Files<CR>')
 vim.keymap.set('n', '<leader>gf', ':GFiles<CR>')
 
-function check_backspace()
+function _G.check_backspace()
     local col = vim.fn.col('.') - 1
     return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
 end
@@ -81,7 +95,7 @@ local opts = {
     expr = true,
     replace_keycodes = false
 }
-vim.keymap.set('i', '<TAB>', 'coc#pum#visible() ? coc#pum#next(1) : check_back_space() ? "<TAB>" : coc#refresh()', opts)
+vim.keymap.set('i', '<TAB>', 'coc#pum#visible() ? coc#pum#next(1) : v:lua.check_backspace() ? "<TAB>" : coc#refresh()', opts);
 vim.keymap.set('i', '<S-TAB>', [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]], opts)
 
 -- Make <CR> to accept selected completion item or notify coc.nvim to format
@@ -92,7 +106,7 @@ vim.keymap.set('n', 'gy', '<Plug>(coc-type-definition)', {silent = true})
 vim.keymap.set('n', 'gi', '<Plug>(coc-implementation)', {silent = true})
 vim.keymap.set('n', 'gr', '<Plug>(coc-references)', {silent = true})
 
-function show_docs()
+vim.keymap.set('n', 'K', function ()
     local cw = vim.fn.expand('<cword>')
     if vim.fn.index({'vim', 'help'}, vim.bo.filetype) >= 0 then
         vim.api.nvim_command('h ' .. cw)
@@ -101,8 +115,7 @@ function show_docs()
     else
         vim.api.nvim_command('!' .. vim.opt.keywordprg .. ' ' .. cw)
     end
-end
-vim.keymap.set('n', 'K', 'show_docs()', {silent = true})
+end, {silent = true})
 
 -- Highlight the symbol and its references on a CursorHold event(cursor is idle)
 vim.api.nvim_create_augroup('CocGroup', {})
@@ -118,8 +131,10 @@ vim.keymap.set('n', '<leader>rn', '<Plug>(coc-rename)', {silent = true})
 vim.keymap.set('x', '<leader>=', '<Plug>(coc-format-selected)', {silent = true})
 vim.keymap.set('n', '<leader>=', '<Plug>(coc-format-selected)', {silent = true})
 
-local opts = {silent = true, nowait = true}
-
+local opts = {
+    silent = true,
+    nowait = true
+}
 vim.keymap.set('x', '<leader>as', '<Plug>(coc-codeaction-selected)', opts)
 vim.keymap.set('n', '<leader>as', '<Plug>(coc-codeaction-selected)', opts)
 
@@ -129,7 +144,11 @@ vim.keymap.set('n', '<leader>qf', '<Plug>(coc-fix-current)', opts)
 vim.keymap.set('n', '<leader>cl', '<Plug>(coc-codelens-action)', opts)
 
 -- Remap <C-f> and <C-b> to scroll float windows/popups
-local opts = {silent = true, nowait = true, expr = true}
+local opts = {
+    silent = true,
+    nowait = true,
+    expr = true
+}
 vim.keymap.set('n', '<C-f>', 'coc#float#has_scroll() ? coc#float#scroll(1) : "<C-f>"', opts)
 vim.keymap.set('n', '<C-b>', 'coc#float#has_scroll() ? coc#float#scroll(0) : "<C-b>"', opts)
 vim.keymap.set('i', '<C-f>', 'coc#float#has_scroll() ? "<c-r>=coc#float#scroll(1)<cr>" : "<Right>"', opts)
@@ -152,3 +171,24 @@ vim.api.nvim_create_user_command('OR', 'call CocActionAsync("runCommand", "edito
 -- NOTE: Please see `:h coc-status` for integrations with external plugins that
 -- provide custom statusline: lightline.vim, vim-airline
 vim.opt.statusline:prepend('%{coc#status()}%{get(b:,"coc_current_function","")}')
+
+-- Gradle file syntax highlights as groovy
+vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
+    pattern = '*.gradle',
+    command = 'setf groovy'
+})
+
+require'nvim-treesitter.configs'.setup{
+    ensure_installed = {
+        'java',
+        'json',
+        'yaml',
+        'lua',
+        'gitignore'
+    },
+    sync_install = true,
+    auto_install = true,
+    highlight = {
+        enable = true
+    }
+}
