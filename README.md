@@ -7,7 +7,7 @@
 #### Packages
 flameshot
 starship
-vim
+neovim
 sxhkd
 polybar
 neofetch
