@@ -3,13 +3,11 @@ local Plug = vim.fn['plug#']
 vim.call('plug#begin', '~/.config/nvim/plugged')
 Plug('neoclide/coc.nvim', { branch = 'master', ['do'] = 'yarn install --frozen-lockfile' })
 Plug('nvim-treesitter/nvim-treesitter')
-Plug('tfnico/vim-gradle')
-Plug('vim-scripts/groovy.vim')
+Plug('lukas-reineke/indent-blankline.nvim')
 Plug('vim-airline/vim-airline')
 Plug('vim-airline/vim-airline-themes')
 Plug('ryanoasis/vim-devicons')
 Plug('joshdick/onedark.vim')
-Plug('tribela/vim-transparent')
 Plug('junegunn/fzf', { ['do'] = vim.fn['fzf#install'] })
 Plug('junegunn/fzf.vim')
 Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && yarn install' })
@@ -17,16 +15,17 @@ vim.call('plug#end')
 
 vim.g.mapleader = ' '
 vim.g['airline#extensions#tabline#enabled'] = 1
-vim.g['airline#extensions#tabline#formatter'] = 'default'
-vim.g.ariline_powerline_fonts = 1
 
 vim.g.coc_global_extensions = {
-    'coc-snippets',
     'coc-java',
+    'coc-groovy',
+    'coc-clangd',
+    'coc-go',
+    'coc-golines',
+    'coc-snippets',
     'coc-json',
     'coc-yaml',
-    'coc-xml',
-    'coc-groovy'
+    'coc-xml'
 }
 
 vim.opt.termguicolors = true
@@ -34,6 +33,18 @@ vim.opt.updatetime = 0
 vim.opt.mouse = nil
 vim.opt.clipboard = 'unnamedplus'
 vim.cmd("colorscheme onedark")
+
+-- transparent background
+vim.cmd [[
+    hi Normal guibg=none ctermbg=none
+    hi LineNr guibg=none ctermbg=none
+    hi Folded guibg=none ctermbg=none
+    hi NonText guibg=none ctermbg=none
+    hi SpecialKey guibg=none ctermbg=none
+    hi VertSplit guibg=none ctermbg=none
+    hi SignColumn guibg=none ctermbg=none
+    hi EndOfBuffer guibg=none ctermbg=none
+]]
 
 vim.opt.nu = true
 vim.opt.rnu = true
@@ -180,8 +191,10 @@ vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
 
 require'nvim-treesitter.configs'.setup{
     ensure_installed = {
+        'c',
         'java',
         'json',
+        'go',
         'yaml',
         'lua',
         'gitignore'
