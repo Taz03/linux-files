@@ -19,13 +19,22 @@ vim.g['airline#extensions#tabline#enabled'] = 1
 vim.g.coc_global_extensions = {
     'coc-java',
     'coc-groovy',
+    'coc-sh',
+    'coc-angular',
+    'coc-html',
+    'coc-css',
+    'coc-stylelintplus',
+    'coc-html-css-support',
     'coc-clangd',
     'coc-go',
     'coc-golines',
     'coc-snippets',
+    'coc-tsserver',
     'coc-json',
     'coc-yaml',
-    'coc-xml'
+    'coc-xml',
+    'coc-highlight',
+    'coc-spell-checker'
 }
 
 vim.opt.termguicolors = true
@@ -192,12 +201,19 @@ vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
 require'nvim-treesitter.configs'.setup{
     ensure_installed = {
         'c',
+        'html',
+        'css',
+        'bash',
         'java',
         'json',
         'go',
+        'javascript',
+        'tsx',
         'yaml',
         'lua',
-        'gitignore'
+        'gitignore',
+        'markdown',
+        'markdown_inline'
     },
     sync_install = true,
     auto_install = true,
