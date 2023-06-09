@@ -5,7 +5,6 @@ format="$directory$git_branch$character"
 
 # Prompt symbols 
 [character]
-success_symbol = "[](#9ece6a bold)"
 error_symbol = "[](#db4b4b)"
 
 [directory]
