@@ -1,4 +1,4 @@
-local Plug = vim.fn['plug#']
+local Plug = vim.fn["plug#"]
 
 vim.call('plug#begin', '~/.config/nvim/plugged')
 Plug('neoclide/coc.nvim', { branch = 'master', ['do'] = 'yarn install --frozen-lockfile' })
@@ -7,7 +7,7 @@ Plug('lukas-reineke/indent-blankline.nvim')
 Plug('vim-airline/vim-airline')
 Plug('vim-airline/vim-airline-themes')
 Plug('ryanoasis/vim-devicons')
-Plug('joshdick/onedark.vim')
+Plug('morhetz/gruvbox')
 Plug('junegunn/fzf', { ['do'] = vim.fn['fzf#install'] })
 Plug('junegunn/fzf.vim')
 Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && yarn install' })
@@ -16,45 +16,15 @@ vim.call('plug#end')
 vim.g.mapleader = ' '
 vim.g['airline#extensions#tabline#enabled'] = 1
 
-vim.g.coc_global_extensions = {
-    'coc-java',
-    'coc-groovy',
-    'coc-sh',
-    'coc-angular',
-    'coc-html',
-    'coc-css',
-    'coc-stylelintplus',
-    'coc-html-css-support',
-    'coc-clangd',
-    'coc-go',
-    'coc-golines',
-    'coc-snippets',
-    'coc-tsserver',
-    'coc-json',
-    'coc-yaml',
-    'coc-xml',
-    'coc-highlight',
-    'coc-spell-checker'
-}
-
 vim.opt.termguicolors = true
 vim.opt.updatetime = 0
 vim.opt.mouse = nil
-vim.opt.clipboard = 'unnamedplus'
-vim.cmd("colorscheme onedark")
+vim.api.nvim_set_option("clipboard", "unnamed")
 
--- transparent background
-vim.cmd [[
-    hi Normal guibg=none ctermbg=none
-    hi LineNr guibg=none ctermbg=none
-    hi Folded guibg=none ctermbg=none
-    hi NonText guibg=none ctermbg=none
-    hi SpecialKey guibg=none ctermbg=none
-    hi VertSplit guibg=none ctermbg=none
-    hi SignColumn guibg=none ctermbg=none
-    hi EndOfBuffer guibg=none ctermbg=none
-]]
+vim.g.gruvbox_contrast_dark = "hard"
+vim.cmd("colorscheme gruvbox")
 
+-- Column numbering
 vim.opt.nu = true
 vim.opt.rnu = true
 
@@ -197,6 +167,27 @@ vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
     pattern = '*.gradle',
     command = 'setf groovy'
 })
+
+vim.g.coc_global_extensions = {
+    'coc-java',
+    'coc-groovy',
+    'coc-sh',
+    'coc-angular',
+    'coc-html',
+    'coc-css',
+    'coc-stylelintplus',
+    'coc-html-css-support',
+    'coc-clangd',
+    'coc-go',
+    'coc-golines',
+    'coc-snippets',
+    'coc-tsserver',
+    'coc-json',
+    'coc-yaml',
+    'coc-xml',
+    'coc-highlight',
+    'coc-spell-checker'
+}
 
 require'nvim-treesitter.configs'.setup{
     ensure_installed = {
