@@ -15,13 +15,10 @@ neofetch
 picom
 feh
 brightnessctl
-discord
 alsa-utils
 rofi
 alacritty
-lm_sensors
 nvidia
 nvidia-utils
 nvidia-settings
-obs-studio
 dunst
