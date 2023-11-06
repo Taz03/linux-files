@@ -1,0 +1,60 @@
+" Highlight copied text
+Plug 'machakann/vim-highlightedyank'
+" Commentary plugin
+Plug 'tpope/vim-commentary'
+" File tree viewer with vim actions
+Plug 'preservim/nerdtree'
+
+let mapleader = " "
+
+" Use system clipboard
+set clipboard+=unnamedplus
+
+" Disable sound
+set vb t_vb =
+
+" Set line number
+set nu
+set rnu
+
+" Show a few lines of context around the cursor. Note that this makes the text scroll if you mouse-click near the start or end of the window.
+set scrolloff = 5
+
+" Do incremental searching.
+set incsearch
+set smartcase
+
+" For regex turn magic on
+set magic
+
+" Use spaces instead of tabs
+set expandtab
+
+" 1 tab = 4 spaces
+set shiftwidth = 4
+set tabstop = 4
+
+" Smart indent
+set si
+
+" Map buffer actions
+nmap <leader>d :bd<cr>
+nmap <leader>p :bp<cr>
+nmap <leader>n :bn<cr>
+
+" Smart line join on J
+set ideajoin
+
+" Fuzzy finder
+nmap <leader>ff <Action>(SearchEverywhere)
+
+" Code navigation
+nmap gd <Action>(GotoDeclaration)
+nmap gy <Action>(GotoTypeDeclaration)
+nmap gi <Action>(GotoImplementation)
+nmap gr <Action>(ShowUsages)
+
+nmap <leader>rn <Action>(RenameElement)
+
+" Show suggested fixes
+nmap <leader>as <Action>(ShowIntentionActions)
