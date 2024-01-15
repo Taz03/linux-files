@@ -1,24 +1,4 @@
 # Showcase
+![2024-01-16_01-10](https://github.com/Taz03/linux-files/assets/73871477/64ed996a-e2cc-4901-b16e-001dbf54b16f)
+![2024-01-16_01-07](https://github.com/Taz03/linux-files/assets/73871477/4018e22b-9ce6-47df-8de9-6d0f268d9ee3)
 
-![image](https://user-images.githubusercontent.com/73871477/222885680-7a65386a-a5e9-41ac-ab54-91eaf92e98f3.png)
-![image](https://user-images.githubusercontent.com/73871477/222885688-a84d9461-ee15-492d-af81-1c592041c09d.png)
-![image](https://user-images.githubusercontent.com/73871477/222885694-f708fde7-68bd-45d4-a2ef-168a419a19b6.png)
-
-
-#### Packages
-flameshot
-starship
-neovim
-sxhkd
-polybar
-neofetch
-picom
-feh
-brightnessctl
-alsa-utils
-rofi
-alacritty
-nvidia
-nvidia-utils
-nvidia-settings
-dunst
