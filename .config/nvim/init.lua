@@ -8,6 +8,7 @@ Plug('vim-airline/vim-airline')
 Plug('vim-airline/vim-airline-themes')
 Plug('ryanoasis/vim-devicons')
 Plug('morhetz/gruvbox')
+Plug('tribela/vim-transparent')
 Plug('junegunn/fzf', { ['do'] = vim.fn['fzf#install'] })
 Plug('junegunn/fzf.vim')
 Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && yarn install' })
@@ -170,18 +171,13 @@ vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
 
 vim.g.coc_global_extensions = {
     'coc-java',
-    'coc-groovy',
     'coc-sh',
-    'coc-angular',
     'coc-html',
     'coc-css',
     'coc-stylelintplus',
     'coc-html-css-support',
     'coc-clangd',
-    'coc-go',
-    'coc-golines',
     'coc-snippets',
-    'coc-tsserver',
     'coc-json',
     'coc-yaml',
     'coc-xml',
