@@ -146,7 +146,7 @@ super + Print
 #
 
 XF86AudioMute
-    amixer -D pulse set Master toggle
+    amixer sset Master toggle & amixer sset Headphone toggle
 
 #
 # Others
