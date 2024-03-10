@@ -1,210 +1,149 @@
-local Plug = vim.fn["plug#"]
-
-vim.call('plug#begin', '~/.config/nvim/plugged')
-Plug('neoclide/coc.nvim', { branch = 'master', ['do'] = 'yarn install --frozen-lockfile' })
-Plug('nvim-treesitter/nvim-treesitter')
-Plug('lukas-reineke/indent-blankline.nvim')
-Plug('vim-airline/vim-airline')
-Plug('vim-airline/vim-airline-themes')
-Plug('ryanoasis/vim-devicons')
-Plug('morhetz/gruvbox')
-Plug('tribela/vim-transparent')
-Plug('junegunn/fzf', { ['do'] = vim.fn['fzf#install'] })
-Plug('junegunn/fzf.vim')
-Plug('iamcco/markdown-preview.nvim', { ['do'] = 'cd app && yarn install' })
-vim.call('plug#end')
+-- Setup lazy.nvim plugin manager
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath
+	})
+end
+vim.opt.rtp:prepend(lazypath)
 
 vim.g.mapleader = ' '
-vim.g['airline#extensions#tabline#enabled'] = 1
+vim.o.updatetime = 50
+local map = vim.keymap.set
+local opts = { noremap = true, silent = true }
 
-vim.opt.termguicolors = true
-vim.opt.updatetime = 0
-vim.opt.mouse = nil
-vim.api.nvim_set_option("clipboard", "unnamed")
+-- Disable mouse
+vim.o.mouse = ""
 
-vim.g.gruvbox_contrast_dark = "hard"
-vim.cmd("colorscheme gruvbox")
+-- Use system clipboard
+vim.api.nvim_set_option("clipboard", "unnamedplus")
 
--- Column numbering
-vim.opt.nu = true
-vim.opt.rnu = true
+-- Disable error sounds
+vim.cmd("set noerrorbells novisualbell")
 
-vim.opt.backup = false
-vim.opt.writebackup = false
+-- Relative line numbering
+vim.o.nu = true
+vim.o.rnu = true
 
--- When searching try to be smart about cases
-vim.opt.smartcase = true
+-- Incremntal searching
+vim.o.incsearch = true
+vim.o.smartcase = true
 
--- Don't redraw while executing macros (good performance config)
-vim.opt.lazyredraw = true
+-- For regex turn magic on
+vim.o.magic = true
 
--- For regular expressions turn magic on
-vim.opt.magic = true
+-- Set the default indent to 4 spaces
+vim.o.tabstop = 4
+vim.o.softtabstop = 4
+vim.o.shiftwidth = 4
+vim.o.expandtab = true
+vim.o.smartindent = true
 
--- Use spaces instead of tabs
-vim.opt.expandtab = true
+-- No line wrapping
+vim.o.wrap = false
 
--- 1 tab == 4 spaces
-vim.opt.shiftwidth = 4
-vim.opt.tabstop = 4
+-- Map buffer actions
+map("n", "<leader>d", ":bd<cr>", opts)
+map("n", "<leader>p", ":bp<cr>", opts)
+map("n", "<leader>n", ":bn<cr>", opts)
 
--- Smart indent
-vim.opt.si = true
+-- Map netrw
+map("n", "<Leader>x", ":Ex<cr>", opts)
 
-vim.keymap.set('', '<C-j>', '<C-w>j')
-vim.keymap.set('', '<C-k>', '<C-w>k')
-vim.keymap.set('', '<C-h>', '<C-w>h')
-vim.keymap.set('', '<C-l>', '<C-w>l')
+-- Disable scary q: history
+map("n", "q:", "<nop>", opts);
 
-vim.keymap.set('n', '<leader>d', vim.cmd.bd)
-vim.keymap.set('n', '<leader>p', vim.cmd.bp)
-vim.keymap.set('n', '<leader>n', vim.cmd.bn)
+-- Move blocks when selected
+map("v", "J", ":m '>+1<cr>gv=gv", opts)
+map("v", "K", ":m '<-2<cr>gv=gv", opts)
 
-vim.keymap.set('n', '<leader>x', vim.cmd.Ex)
+-- Cursor stay in one place when using J in normal mode
+map("n", "J", "mzJ`z", opts)
 
--- Move group of text in visual mode
-vim.keymap.set('v', 'J', ':m ">+1<CR>gv=gv')
-vim.keymap.set('v', 'K', ':m "<-2<CR>gv=gv')
+-- Plugins
+require("lazy").setup({
+    { "nvim-tree/nvim-web-devicons" },
+    { "sainnhe/gruvbox-material" },
+    { "nvim-lualine/lualine.nvim" },
+    { "machakann/vim-highlightedyank" },
+    { "nvim-telescope/telescope.nvim", dependencies = { 'nvim-lua/plenary.nvim' } },
+    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 
--- Return to last edit position when opening files
-vim.api.nvim_create_autocmd('BufReadPost', {
-    command = 'normal! g\'"'
+    -- LSP
+    { "williamboman/mason.nvim" },
+    { "williamboman/mason-lspconfig.nvim" },
+    { "VonHeikemen/lsp-zero.nvim" },
+    { "neovim/nvim-lspconfig" },
+    { "hrsh7th/cmp-nvim-lsp" },
+    { "hrsh7th/nvim-cmp" },
+    { "L3MON4D3/LuaSnip" },
 })
 
--- Keymp for fuzzy finder
-vim.keymap.set('n', '<leader>ff', ':Files<CR>')
-vim.keymap.set('n', '<leader>gf', ':GFiles<CR>')
+-- Gruvbox theme config
+vim.g.gruvbox_material_background = "hard"
+vim.g.gruvbox_material_foreground = "original"
+vim.g.gruvbox_material_transparent_background = 1
+vim.g.gruvbox_material_ui_contrast = "high"
+vim.cmd("colorscheme gruvbox-material")
 
-function _G.check_backspace()
-    local col = vim.fn.col('.') - 1
-    return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
-end
-
--- Use Tab for trigger completion with characters ahead and navigate
-local opts = {
-    silent = true,
-    expr = true,
-    replace_keycodes = false
-}
-vim.keymap.set('i', '<TAB>', 'coc#pum#visible() ? coc#pum#next(1) : v:lua.check_backspace() ? "<TAB>" : coc#refresh()', opts);
-vim.keymap.set('i', '<S-TAB>', [[coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"]], opts)
-
--- Make <CR> to accept selected completion item or notify coc.nvim to format
-vim.keymap.set('i', '<CR>', [[coc#pum#visible() ? coc#pum#confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"]], opts)
-
-vim.keymap.set('n', 'gd', '<Plug>(coc-definition)', {silent = true})
-vim.keymap.set('n', 'gy', '<Plug>(coc-type-definition)', {silent = true})
-vim.keymap.set('n', 'gi', '<Plug>(coc-implementation)', {silent = true})
-vim.keymap.set('n', 'gr', '<Plug>(coc-references)', {silent = true})
-
-vim.keymap.set('n', 'K', function ()
-    local cw = vim.fn.expand('<cword>')
-    if vim.fn.index({'vim', 'help'}, vim.bo.filetype) >= 0 then
-        vim.api.nvim_command('h ' .. cw)
-    elseif vim.api.nvim_eval('coc#rpc#ready()') then
-        vim.fn.CocActionAsync('doHover')
-    else
-        vim.api.nvim_command('!' .. vim.opt.keywordprg .. ' ' .. cw)
-    end
-end, {silent = true})
-
--- Highlight the symbol and its references on a CursorHold event(cursor is idle)
-vim.api.nvim_create_augroup('CocGroup', {})
-vim.api.nvim_create_autocmd('CursorHold', {
-    group = 'CocGroup',
-    command = 'silent call CocActionAsync(\'highlight\')',
-    desc = 'Highlight symbol under cursor on CursorHold'
-})
-
-vim.keymap.set('n', '<leader>rn', '<Plug>(coc-rename)', {silent = true})
-
--- Formatting selected code
-vim.keymap.set('x', '<leader>=', '<Plug>(coc-format-selected)', {silent = true})
-vim.keymap.set('n', '<leader>=', '<Plug>(coc-format-selected)', {silent = true})
-
-local opts = {
-    silent = true,
-    nowait = true
-}
-vim.keymap.set('x', '<leader>as', '<Plug>(coc-codeaction-selected)', opts)
-vim.keymap.set('n', '<leader>as', '<Plug>(coc-codeaction-selected)', opts)
-
-vim.keymap.set('n', '<leader>qf', '<Plug>(coc-fix-current)', opts)
-
--- Run the Code Lens actions on the current line
-vim.keymap.set('n', '<leader>cl', '<Plug>(coc-codelens-action)', opts)
-
--- Remap <C-f> and <C-b> to scroll float windows/popups
-local opts = {
-    silent = true,
-    nowait = true,
-    expr = true
-}
-vim.keymap.set('n', '<C-f>', 'coc#float#has_scroll() ? coc#float#scroll(1) : "<C-f>"', opts)
-vim.keymap.set('n', '<C-b>', 'coc#float#has_scroll() ? coc#float#scroll(0) : "<C-b>"', opts)
-vim.keymap.set('i', '<C-f>', 'coc#float#has_scroll() ? "<c-r>=coc#float#scroll(1)<cr>" : "<Right>"', opts)
-vim.keymap.set('i', '<C-b>', 'coc#float#has_scroll() ? "<c-r>=coc#float#scroll(0)<cr>" : "<Left>"', opts)
-vim.keymap.set('v', '<C-f>', 'coc#float#has_scroll() ? coc#float#scroll(1) : "<C-f>"', opts)
-vim.keymap.set('v', '<C-b>', 'coc#float#has_scroll() ? coc#float#scroll(0) : "<C-b>"', opts)
-
--- Use CTRL-S for selections ranges
--- Requires 'textDocument/selectionRange' support of language server
-vim.keymap.set('n', '<C-s>', '<Plug>(coc-range-select)', {silent = true})
-vim.keymap.set('x', '<C-s>', '<Plug>(coc-range-select)', {silent = true})
-
--- Add `:Format` command to format current buffer
-vim.api.nvim_create_user_command('Format', 'call CocAction("format")', {})
-
--- Add `:OR` command for organize imports of the current buffer
-vim.api.nvim_create_user_command('OR', 'call CocActionAsync("runCommand", "editor.action.organizeImport")', {})
-
--- Add (Neo)Vim's native statusline support
--- NOTE: Please see `:h coc-status` for integrations with external plugins that
--- provide custom statusline: lightline.vim, vim-airline
-vim.opt.statusline:prepend('%{coc#status()}%{get(b:,"coc_current_function","")}')
-
--- Gradle file syntax highlights as groovy
-vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
-    pattern = '*.gradle',
-    command = 'setf groovy'
-})
-
-vim.g.coc_global_extensions = {
-    'coc-java',
-    'coc-sh',
-    'coc-html',
-    'coc-css',
-    'coc-stylelintplus',
-    'coc-html-css-support',
-    'coc-clangd',
-    'coc-snippets',
-    'coc-json',
-    'coc-yaml',
-    'coc-xml',
-    'coc-highlight',
-    'coc-spell-checker'
-}
-
-require'nvim-treesitter.configs'.setup{
-    ensure_installed = {
-        'c',
-        'html',
-        'css',
-        'bash',
-        'java',
-        'json',
-        'go',
-        'javascript',
-        'tsx',
-        'yaml',
-        'lua',
-        'gitignore',
-        'markdown',
-        'markdown_inline'
+require("lualine").setup {
+    options = {
+        theme = "gruvbox",
+        section_separators = '|',
+        component_separators = '|'
     },
-    sync_install = true,
-    auto_install = true,
-    highlight = {
-        enable = true
-    }
+    sections = {
+        lualine_a = { "filename" },
+        lualine_b = { "branch", "diff", "diagnostics" },
+        lualine_c = { "buffers" },
+        lualine_x = {
+            {
+                function()
+                    return "L:" .. vim.fn.line('$')
+                end
+            }
+        },
+        lualine_y = { "location" },
+        lualine_z = { "mode" },
+    },
 }
+
+-- Highlighted yank
+vim.g.highlightedyank_highlight_duration = 250
+
+-- Telescope(Fuzzy finder) config
+local telescope_builtin = require("telescope.builtin")
+map("n", "<leader>ff", telescope_builtin.find_files, opts)
+map("n", "<leader>gf", telescope_builtin.git_files, opts)
+map("n", "<leader>fg", telescope_builtin.live_grep, opts)
+
+require("lazy").setup({
+    ensure_installed = {
+        "c",
+        "lua",
+        "vim",
+        "java",
+        "vimdoc",
+        "javascript",
+        "html"
+    },
+    sync_install = false,
+    auto_install = true,
+    highlight = { enable = true },
+    indent = { enable = true },
+})
+
+local lsp_zero = require("lsp-zero")
+lsp_zero.preset("recommended")
+lsp_zero.setup()
+require('mason').setup({})
+require('mason-lspconfig').setup({
+    handlers = {
+        lsp_zero.default_setup,
+    },
+})
