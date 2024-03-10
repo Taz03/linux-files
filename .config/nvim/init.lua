@@ -122,7 +122,7 @@ map("n", "<leader>ff", telescope_builtin.find_files, opts)
 map("n", "<leader>gf", telescope_builtin.git_files, opts)
 map("n", "<leader>fg", telescope_builtin.live_grep, opts)
 
-require("lazy").setup({
+require("nvim-treesitter.configs").setup({
     ensure_installed = {
         "c",
         "lua",
