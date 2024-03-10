@@ -12,8 +12,8 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-vim.g.mapleader = ' '
-vim.o.updatetime = 50
+vim.g.mapleader = " "
+vim.o.updatetime = 10
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
@@ -66,12 +66,12 @@ map("v", "K", ":m '<-2<cr>gv=gv", opts)
 map("n", "J", "mzJ`z", opts)
 
 -- Plugins
-require("lazy").setup({
+require("lazy").setup {
     { "nvim-tree/nvim-web-devicons" },
     { "sainnhe/gruvbox-material" },
     { "nvim-lualine/lualine.nvim" },
     { "machakann/vim-highlightedyank" },
-    { "nvim-telescope/telescope.nvim", dependencies = { 'nvim-lua/plenary.nvim' } },
+    { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" } },
     { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
 
     -- LSP
@@ -82,7 +82,7 @@ require("lazy").setup({
     { "hrsh7th/cmp-nvim-lsp" },
     { "hrsh7th/nvim-cmp" },
     { "L3MON4D3/LuaSnip" },
-})
+}
 
 -- Gruvbox theme config
 vim.g.gruvbox_material_background = "hard"
@@ -94,8 +94,8 @@ vim.cmd("colorscheme gruvbox-material")
 require("lualine").setup {
     options = {
         theme = "gruvbox",
-        section_separators = '|',
-        component_separators = '|'
+        section_separators = "|",
+        component_separators = "|"
     },
     sections = {
         lualine_a = { "filename" },
@@ -104,7 +104,7 @@ require("lualine").setup {
         lualine_x = {
             {
                 function()
-                    return "L:" .. vim.fn.line('$')
+                    return "L:" .. vim.fn.line("$")
                 end
             }
         },
@@ -122,7 +122,7 @@ map("n", "<leader>ff", telescope_builtin.find_files, opts)
 map("n", "<leader>gf", telescope_builtin.git_files, opts)
 map("n", "<leader>fg", telescope_builtin.live_grep, opts)
 
-require("nvim-treesitter.configs").setup({
+require("nvim-treesitter.configs").setup {
     ensure_installed = {
         "c",
         "lua",
@@ -136,14 +136,14 @@ require("nvim-treesitter.configs").setup({
     auto_install = true,
     highlight = { enable = true },
     indent = { enable = true },
-})
+}
 
 local lsp_zero = require("lsp-zero")
 lsp_zero.preset("recommended")
 lsp_zero.setup()
-require('mason').setup({})
-require('mason-lspconfig').setup({
+require("mason").setup {}
+require("mason-lspconfig").setup {
     handlers = {
         lsp_zero.default_setup,
     },
-})
+}
