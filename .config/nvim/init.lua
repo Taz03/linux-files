@@ -15,15 +15,4 @@ vim.opt.rtp:prepend(lazypath)
 require("opts")
 require("keymaps")
 
--- Plugins
 require("lazy").setup("plugins")
-
-local lsp_zero = require("lsp-zero")
-lsp_zero.preset("recommended")
-lsp_zero.setup()
-require("mason").setup {}
-require("mason-lspconfig").setup {
-    handlers = {
-        lsp_zero.default_setup,
-    },
-}
