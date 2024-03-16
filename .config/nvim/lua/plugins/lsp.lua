@@ -73,5 +73,11 @@ return {
                 vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
             end)
         end
+    },
+    {
+        "m4xshen/autoclose.nvim",
+        config = function ()
+            require "autoclose".setup {}
+        end
     }
 }
