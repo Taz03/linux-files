@@ -4,8 +4,8 @@ return {
     config = function ()
         require "lualine".setup {
             options = {
-                theme = "gruvbox",
-                section_separators = "|",
+                theme = "gruvbox_dark",
+                section_separators = "",
                 component_separators = "|"
             },
             sections = {

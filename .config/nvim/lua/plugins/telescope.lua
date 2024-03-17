@@ -6,5 +6,6 @@ return {
         vim.keymap.set("n", "<leader>ff", telescope_builtin.find_files, opts)
         vim.keymap.set("n", "<leader>gf", telescope_builtin.git_files, opts)
         vim.keymap.set("n", "<leader>fg", telescope_builtin.live_grep, opts)
+        vim.keymap.set("n", "<leader>bf", telescope_builtin.buffers, opts)
     end
 }

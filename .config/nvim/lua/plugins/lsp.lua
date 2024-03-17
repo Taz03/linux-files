@@ -7,7 +7,7 @@ return {
     },
     {
         "williamboman/mason-lspconfig.nvim",
-        config = function ()
+        config = function()
             local lsp_zero = require("lsp-zero")
 
             require("mason-lspconfig").setup({
@@ -25,7 +25,7 @@ return {
     { "hrsh7th/cmp-nvim-lsp" },
     {
         "hrsh7th/nvim-cmp",
-        config = function ()
+        config = function()
             local lsp_zero = require("lsp-zero")
 
             local cmp = require("cmp")
@@ -57,6 +57,7 @@ return {
         "VonHeikemen/lsp-zero.nvim",
         config = function()
             local lsp_zero = require("lsp-zero")
+            lsp_zero.extend_lspconfig()
 
             lsp_zero.on_attach(function(client, bufnr)
                 local opts = { buffer = bufnr, remap = false }
@@ -76,8 +77,13 @@ return {
     },
     {
         "m4xshen/autoclose.nvim",
-        config = function ()
+        config = function()
             require "autoclose".setup {}
         end
+    },
+    {
+        "numToStr/Comment.nvim",
+        opts = {},
+        lazy = false
     }
 }

@@ -3,7 +3,7 @@ vim.o.updatetime = 10
 
 -- Gruvbox material setup, for some reason it doesn't work in grubox config block
 vim.g.gruvbox_material_background = "hard"
-vim.g.gruvbox_material_foreground = "original"
+vim.g.gruvbox_material_foreground = "material"
 vim.g.gruvbox_material_transparent_background = 1
 vim.g.gruvbox_material_ui_contrast = "high"
 
