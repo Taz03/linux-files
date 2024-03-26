@@ -1,22 +1,32 @@
-# Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
-setopt autocd extendedglob nomatch notify
-unsetopt beep
-bindkey -v
-# End of lines configured by zsh-newuser-install
+export ZSH="$HOME/.oh-my-zsh"
 
-# The following lines were added by compinstall
-zstyle :compinstall filename '/home/taz/.zshrc'
+ZSH_THEME="frontcube"
 
-autoload -Uz compinit
-compinit
-# End of lines added by compinstall
+HYPHEN_INSENSITIVE="true"
 
-alias ls="ls --color=auto"
+zstyle ':omz:update' mode auto
 
-export STARSHIP_CONFIG=~/.config/starship/starship.toml
-eval "$(starship init zsh)"
+zstyle ':omz:update' frequency 7
+
+ENABLE_CORRECTION="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+if [[ -n $SSH_CONNECTION ]]; then
+    export EDITOR='vim'
+else
+    export EDITOR='mvim'
+fi
 
 fpath=(~/.zsh/gradle-completion $fpath)
+
+bindkey -v

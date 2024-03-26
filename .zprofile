@@ -1,7 +1,7 @@
 # Added by Toolbox App
 export PATH="$PATH:/home/taz/.local/share/JetBrains/Toolbox/scripts"
 
-nmcli d wifi hotspot ifname wlan0 ssid Arch password password
+nmcli d wifi hotspot ifname wlan0 ssid Arch password lucyevie
 
 GPG_TTY=$(tty)
 export GPG_TTY
