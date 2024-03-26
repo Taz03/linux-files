@@ -10,21 +10,27 @@ configuration {
 @theme "/dev/null"
 
 * {
-  bg: #1d2021;
-  bg-alt: #282828;
+  bg: #272E33;
+  bg-alt: #3C4841;
+  fg: #A7C080;
+  fg-alt: #56635F;
 
-  fg: #ebdbb2;
-  fg-alt: #a89984;
+  background-color: transparent;
 
-  background-color: @bg;
+  transparent: rgba(0,0,0,0);
+  transparent-background: rgba(0,0,0,0.5);
+
   spacing: 0;
 }
 
 window {
   width: 30%;
+  transparency: "screenshot";
+  background-color: @transparent;
 }
 
 element {
+  background-color: transparent;
   padding: 8 0;
   text-color: @fg-alt;
 }
@@ -55,13 +61,12 @@ inputbar {
 
 listview {
   padding: 8 12;
-  background-color: @bg;
   columns: 1;
+  background-color: @transparent-background;
   lines: 8;
 }
 
 mainbox {
-  background-color: @bg;
   children: [inputbar, listview];
 }
 
