@@ -4,7 +4,7 @@ return {
     config = function ()
         require "lualine".setup {
             options = {
-                theme = "gruvbox_dark",
+                theme = "everforest",
                 section_separators = "",
                 component_separators = "|"
             },

@@ -1,5 +1,5 @@
 import = [
-    "~/.config/alacritty/gruvbox_material_hard_dark.toml"
+    "~/.config/alacritty/everforest.toml"
 ]
 
 [colors]
@@ -31,4 +31,4 @@ import = [
     save_to_clipboard = false
 
 [window]
-    opacity = 0.85
+    opacity = 0.9
