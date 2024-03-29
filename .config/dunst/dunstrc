@@ -110,17 +110,15 @@ max_icon_size = 48
 frame_width = 0
 
 [urgency_low]
-# IMPORTANT: colors have to be defined in quotation marks.
-# Otherwise the "#" and following would be interpreted as a comment.
 frame_color = "#7bc5e4"
-foreground = "#7bc5e4"
-background = "#282e49"
+foreground = "#a7c080"
+background = "#1d1f21"
 timeout = 10
 
 [urgency_normal]
 frame_color = "#7bc5e4"
-foreground = "#7bc5e4"
-background = "#282e49"
+foreground = "#a7c080"
+background = "#1d1f21"
 timeout = 10
 
 [urgency_critical]

@@ -142,11 +142,11 @@ super + Print
     flameshot full
 
 #
-# Volume
+# Sound
 #
 
 XF86AudioMute
-    amixer sset Master toggle & amixer sset Headphone toggle
+    amixer sset Headphone toggle & amixer sset Master toggle
 
 #
 # Others
@@ -155,7 +155,3 @@ XF86AudioMute
 # Emoji selector
 alt + E
     rofi -show emoji
-
-# Systray
-alt + S
-    systray
