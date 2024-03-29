@@ -15,7 +15,7 @@ ENABLE_CORRECTION="true"
 # much, much faster.
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-plugins=(git)
+plugins=(git gradle-completion zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -27,6 +27,7 @@ else
     export EDITOR='mvim'
 fi
 
-fpath=(~/.zsh/gradle-completion $fpath)
-
 bindkey -v
+
+GPG_TTY=$(tty)
+export GPG_TTY
