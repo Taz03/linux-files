@@ -19,3 +19,9 @@ map("v", "K", ":m '<-2<cr>gv=gv", opts)
 -- Cursor stay in one place when using J in normal mode
 map("n", "J", "mzJ`z", opts)
 
+-- Move between windows
+map("n", "<C-h>", "<C-w>h", opts)
+map("n", "<C-j>", "<C-w>j", opts)
+map("n", "<C-k>", "<C-w>k", opts)
+map("n", "<C-l>", "<C-w>l", opts)
+

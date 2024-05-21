@@ -7,10 +7,6 @@ vim.o.mouse = ""
 -- Use system clipboard
 vim.o.clipboard = "unnamedplus"
 
--- Disable error sounds
-vim.o.noerrorbells = true
-vim.o.novisualbell = true
-
 -- Relative line numbering
 vim.o.nu = true
 vim.o.rnu = true
