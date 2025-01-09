@@ -58,3 +58,7 @@ nmap <leader>rn <Action>(RenameElement)
 
 " Show suggested fixes
 nmap <leader>as <Action>(ShowIntentionActions)
+
+" Move blocks when selected
+vmap J ":m '>+1<cr>gv=gv"
+vmap K ":m '<-2<cr>gv=gv"

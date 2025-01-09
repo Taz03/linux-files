@@ -1,5 +1,5 @@
 import = [
-    "~/.config/alacritty/everforest.toml"
+    "~/.config/alacritty/colorscheme.toml"
 ]
 
 [colors]
